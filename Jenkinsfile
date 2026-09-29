@@ -54,7 +54,7 @@ stage ('wait_for_testing'){
 	stage('RunDASTUsingZAP') {
           steps {
 		    withKubeConfig([credentialsId: 'kubelogin']) {
-				sh('zap.sh -cmd -quickurl http://$(kubectl get services/asgbuggy --namespace=devsecops -o json| jq -r ".status.loadBalancer.ingress[] | .hostname") -quickprogress -quickout ${WORKSPACE}/zap_report.html')
+				sh('zap.sh -cmd -quickurl http://$(kubectl get services/devopsakbuggy --namespace=devsecops -o json| jq -r ".status.loadBalancer.ingress[] | .hostname") -quickprogress -quickout ${WORKSPACE}/zap_report.html')
 				archiveArtifacts artifacts: 'zap_report.html'
 		    }
 	     }
